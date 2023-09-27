@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiCommentDetail } from "react-icons/bi";
 import { TbCircleDashed } from "react-icons/tb";
 import {AiOutlineSearch} from "react-icons/ai";
@@ -6,6 +6,18 @@ import {BsFilter} from "react-icons/bs"
 import ChatCard from "./ChatCard/ChatCard";
 
 const HomePage = () => {
+
+    const [query,setquery] = useState(null);
+    const [currentChat,setcurrentchat] = useState(null);
+
+    const handleClickOnChatCard = () =>{
+        setcurrentchat(true);
+    }
+
+    const handleSearch=()=>{
+
+    }
+
     return(
         <div className="relative">
             <div className=" w-full py-14 bg-[#00a884]"></div>
@@ -30,7 +42,12 @@ const HomePage = () => {
                             <input
                                 className="border-none outline-none bg-slate-200 w-[93%] pl-9 py-2 rounded-md"
                                 type="text"
-                                placeholder="Search or start a new chat" 
+                                placeholder="Search or start a new chat"
+                                onChange={(e)=>{
+                                    setquery(e.target.value);
+                                    handleSearch(e.target.value);
+                                }}
+                                value={query}
                             />
                             <AiOutlineSearch className="left-5 top-7 absolute"/>
                             <div>
@@ -39,15 +56,32 @@ const HomePage = () => {
                         </div>
 
                         <div className="bg-white px-3 h-[76.8vh] overflow-y-scroll">
-                            {[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,].map((ele) =>
-                            <div><hr/><ChatCard/></div>
+                            {query && [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1].map((ele) =>
+                            <div onClick={handleClickOnChatCard}>
+                                <hr/>
+                                <ChatCard/>
+                            </div>
                         )}
                         </div>
                     </div>
                 </div>
-                <div className="right">
-                    
-                </div>
+                
+                
+                    {!currentChat && <div className="w-[70%] flex flex-col items-center justify-center h-full">
+                        <div className="max-w-[70%] text-center">
+                            <img 
+                            className="w-full"
+                            src="https://images.news18.com/ibnlive/uploads/2023/04/untitled-design-2023-04-04t124923.888.jpg?impolicy=website&width=510&height=356" 
+                            alt="" 
+                            />
+                            <h1 className="mt-5 text-4xl text-gray-600">ChatIO Web</h1>
+                            <p className="my-9">
+                                Now send and receive messages without keeping your phone online Use 
+                                ChatIO on up to 4 linked devices and 1 phone at the same time
+                            </p>
+                        </div>
+                    </div>}
+                
             </div>
         </div>
     )
