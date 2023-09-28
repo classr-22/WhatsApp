@@ -2,13 +2,17 @@ import React, { useState } from "react";
 import { BiCommentDetail } from "react-icons/bi";
 import { TbCircleDashed } from "react-icons/tb";
 import {AiOutlineSearch} from "react-icons/ai";
-import {BsFilter} from "react-icons/bs"
+import {BsEmojiAngry, BsEmojiSmile, BsFilter, BsMicFill, BsThreeDotsVertical} from "react-icons/bs"
+import { ImAttachment } from "react-icons/im"
 import ChatCard from "./ChatCard/ChatCard";
+import MessageCard from "./MessageCard/MessageCard";
+import './HomePage.css'
 
 const HomePage = () => {
 
     const [query,setquery] = useState(null);
     const [currentChat,setcurrentchat] = useState(null);
+    const [content,setcontent] = useState("");
 
     const handleClickOnChatCard = () =>{
         setcurrentchat(true);
@@ -18,10 +22,14 @@ const HomePage = () => {
 
     }
 
+    const handleCreateNewMessage = () => {
+
+    }
+
     return(
         <div className="relative">
             <div className=" w-full py-14 bg-[#00a884]"></div>
-            <div className="flex bg-[#f0f2f5] h-[90vh] absolute top-6 left-6 w-full">
+            <div className="flex bg-[#f0f2f5] h-[90vh] absolute top-[5vh] left-[1vw] w-[97vw]">
                 <div className="left bg-[#e8e9ec] w-[30%] h-full ">
                     <div className="w-full">
                         
@@ -55,7 +63,7 @@ const HomePage = () => {
                             </div>
                         </div>
 
-                        <div className="bg-white px-3 h-[76.8vh] overflow-y-scroll">
+                        <div className="bg-white px-3 h-[70.85vh] overflow-y-scroll">
                             {query && [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1].map((ele) =>
                             <div onClick={handleClickOnChatCard}>
                                 <hr/>
@@ -81,6 +89,59 @@ const HomePage = () => {
                             </p>
                         </div>
                     </div>}
+
+
+                
+                {currentChat &&
+                <div className="relative w-[70%]">
+                    <div className="header absolute top-0 w-full bg-white">
+                        <div className="flex justify-between">
+                            <div className="flex items-center space-x-4 px-3 py-3">
+                                <img
+                                className="rounded-full w-10 h-10"
+                                src="https://cdn.pixabay.com/photo/2023/09/15/04/05/sea-8254024_640.jpg"
+                                alt=""
+                                ></img>
+                                <p>
+                                    username
+                                </p>
+                            </div>
+                            <div className="flex items-center space-x-4 px-3 py-3">
+                                <AiOutlineSearch/>
+                                <BsThreeDotsVertical/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="px-10 h-[85vh] overflow-y-scroll bg-blue-200">
+                        <div className="space-y-1 flex flex-col justify-center mt-20 py-2">
+                            {[1,1,1,1,1,1,1,1,1,1,1,1,1,1].map((item,i)=><MessageCard isRequserMessage={i%2==0} content={"message"}/>)}
+                        </div>
+                    </div>
+
+                    <div className=" footer bg-[#e8e9ec] absolute bottom-0 w-full py-2 text-2xl">
+                        <div className="flex justify-between items-center px-5 relative">
+                            <BsEmojiSmile className="cursor-pointer"/>
+                            <ImAttachment/>
+                        
+                            <input 
+                            className="w-[85%] py-2 outline-none border-none bg-white pl-4 rounded-md" 
+                            type="text" 
+                            placeholder="Type a message"
+                            onChange={(e)=> setcontent(e.target.value)}
+                            value={content}
+                            onKeyPress={(e)=>{
+                                if(e.key=="Enter"){
+                                    handleCreateNewMessage();
+                                    setcontent();
+                                }
+                            }} 
+                            />
+                            <BsMicFill/>   
+                        </div>
+                    </div>
+
+                </div>}
                 
             </div>
         </div>
