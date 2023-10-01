@@ -7,12 +7,14 @@ import { ImAttachment } from "react-icons/im"
 import ChatCard from "./ChatCard/ChatCard";
 import MessageCard from "./MessageCard/MessageCard";
 import './HomePage.css'
+import Profile from "./Profile/Profile";
 
 const HomePage = () => {
 
     const [query,setquery] = useState(null);
     const [currentChat,setcurrentchat] = useState(null);
     const [content,setcontent] = useState("");
+    const [isprofile,setisprofile] = useState(false);
 
     const handleClickOnChatCard = () =>{
         setcurrentchat(true);
@@ -26,15 +28,24 @@ const HomePage = () => {
 
     }
 
+    const handleNavigate = () => {
+        setisprofile(true);
+    }
+
+    const handleCloseOpenProfile = () =>{
+        setisprofile(false);
+    }
+
     return(
         <div className="relative">
-            <div className=" w-full py-14 bg-[#00a884]"></div>
+            <div className=" w-full py-14 bg-[#00a884] rounded-md"></div>
             <div className="flex bg-[#f0f2f5] h-[90vh] absolute top-[5vh] left-[1vw] w-[97vw]">
                 <div className="left bg-[#e8e9ec] w-[30%] h-full ">
-                    <div className="w-full">
-                        
+                    {isprofile && <div className="w-full h-full"><Profile handleCloseOpenProfile={handleCloseOpenProfile}/></div>}
+                    
+                    {!isprofile && <div className="w-full">
                         <div className="flex justify-between items-center p-3">
-                            <div className="flex items-center space-x-3">
+                            <div onClick={handleNavigate} className="flex items-center space-x-3">
                                 <img className="rounded-full w-10 h-10 cursor-pointer" 
                                 src="https://cdn.pixabay.com/photo/2023/06/20/01/30/ai-generated-8075768_640.jpg" 
                                 alt="" />
@@ -71,7 +82,7 @@ const HomePage = () => {
                             </div>
                         )}
                         </div>
-                    </div>
+                    </div>}
                 </div>
                 
                 
