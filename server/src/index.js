@@ -2,6 +2,8 @@ const express = require('express');
 
 const userRoutes = require('./routes/userroutes.js');
 const authRoutes = require('./routes/authroutes.js');
+const chatRoutes = require('./routes/chatroutes.js')
+
 const app = express();
 
 app.use(express.json());
@@ -11,5 +13,7 @@ app.get("/",(req,res)=>{
 
 app.use("/users",userRoutes);
 app.use("/auth",authRoutes);
+
+app.use("/chats",chatRoutes);
 
 module.exports=app;
